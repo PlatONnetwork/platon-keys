@@ -10,9 +10,9 @@ deps = {
     'coincurve': [
         'coincurve>=7.0.0,<13.0.0',
     ],
-    'eth-keys': [
-        "eth-utils>=1.8.2,<2.0.0",
-        "eth-typing>=2.2.1,<3.0.0",
+    'platon-keys': [
+        "platon-utils>=1.2.0",
+        "platon-typing>=1.2.0",
     ],
     'test': [
         "asn1tools>=0.146.2,<0.147",
@@ -20,8 +20,8 @@ deps = {
         "pyasn1>=0.4.5,<0.5",
         "pytest==5.4.1",
         "hypothesis>=5.10.3, <6.0.0",
-        "eth-hash[pysha3];implementation_name=='cpython'",
-        "eth-hash[pycryptodome];implementation_name=='pypy'",
+        "platon-hash[pysha3];implementation_name=='cpython'",
+        "platon-hash[pycryptodome];implementation_name=='pypy'",
     ],
     'lint': [
         'flake8==3.0.4',
@@ -36,7 +36,7 @@ deps = {
 
 deps['dev'] = (
     deps['dev'] +
-    deps['eth-keys'] +
+    deps['platon-keys'] +
     deps['lint'] +
     deps['test']
 )
@@ -45,23 +45,23 @@ with open('./README.md') as readme:
     long_description = readme.read()
 
 setup(
-    name='eth-keys',
+    name='platon-keys',
     # *IMPORTANT*: Don't manually change the version here. Use the 'bumpversion' utility.
-    version='0.3.3',
-    description="""Common API for Ethereum key operations.""",
+    version='1.2.0',
+    description="""Common API for Platon key operations.""",
     long_description=long_description,
     long_description_content_type='text/markdown',
-    author='Piper Merriam',
-    author_email='pipermerriam@gmail.com',
-    url='https://github.com/ethereum/eth-keys',
+    author='Shinnng',
+    author_email='shinnng@outlook.com',
+    url='https://github.com/platonnetwork/platon-keys',
     include_package_data=True,
-    install_requires=deps['eth-keys'],
-    py_modules=['eth_keys'],
+    install_requires=deps['platon-keys'],
+    py_modules=['platon_keys'],
     extras_require=deps,
     license="MIT",
     zip_safe=False,
-    package_data={'eth-keys': ['py.typed']},
-    keywords='ethereum',
+    package_data={'platon-keys': ['py.typed']},
+    keywords='platon',
     packages=find_packages(exclude=["tests", "tests.*"]),
     classifiers=[
         'Development Status :: 4 - Beta',

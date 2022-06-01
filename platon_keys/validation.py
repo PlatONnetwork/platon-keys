@@ -1,14 +1,14 @@
 from typing import Any
 
-from eth_utils import (
+from platon_utils import (
     encode_hex,
     is_bytes,
     is_integer,
     ValidationError,
 )
-from eth_utils.toolz import curry
+from platon_utils.toolz import curry
 
-from eth_keys.constants import (
+from platon_keys.constants import (
     SECPK1_N,
 )
 

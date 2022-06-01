@@ -2,27 +2,27 @@ from __future__ import absolute_import
 
 from typing import Optional  # noqa: F401
 
-from eth_utils import (
+from platon_utils import (
     big_endian_to_int,
 )
 
-from eth_keys.datatypes import (  # noqa: F401
+from platon_keys.datatypes import (  # noqa: F401
     BaseSignature,
     NonRecoverableSignature,
     PrivateKey,
     PublicKey,
     Signature,
 )
-from eth_keys.exceptions import (
+from platon_keys.exceptions import (
     BadSignature,
 )
-from eth_keys.validation import (
+from platon_keys.validation import (
     validate_uncompressed_public_key_bytes,
 )
-from eth_keys.utils import (
+from platon_keys.utils import (
     der,
 )
-from eth_keys.utils.numeric import (
+from platon_keys.utils.numeric import (
     coerce_low_s,
 )
 

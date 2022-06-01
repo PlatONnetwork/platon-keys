@@ -1,10 +1,10 @@
 from typing import (Any, Union, Type)  # noqa: F401
 
-from eth_utils import (
+from platon_utils import (
     ValidationError,
 )
 
-from eth_keys.datatypes import (
+from platon_keys.datatypes import (
     BaseSignature,
     LazyBackend,
     NonRecoverableSignature,
@@ -12,7 +12,7 @@ from eth_keys.datatypes import (
     PrivateKey,
     Signature,
 )
-from eth_keys.validation import (
+from platon_keys.validation import (
     validate_message_hash,
 )
 
@@ -43,13 +43,13 @@ class KeyAPI(LazyBackend):
         validate_message_hash(message_hash)
         if not isinstance(private_key, PrivateKey):
             raise ValidationError(
-                "The `private_key` must be an instance of `eth_keys.datatypes.PrivateKey`"
+                "The `private_key` must be an instance of `platon_keys.datatypes.PrivateKey`"
             )
         signature = self.backend.ecdsa_sign(message_hash, private_key)
         if not isinstance(signature, Signature):
             raise ValidationError(
                 "Backend returned an invalid signature.  Return value must be "
-                "an instance of `eth_keys.datatypes.Signature`"
+                "an instance of `platon_keys.datatypes.Signature`"
             )
         return signature
 
@@ -59,13 +59,13 @@ class KeyAPI(LazyBackend):
         validate_message_hash(message_hash)
         if not isinstance(private_key, PrivateKey):
             raise ValidationError(
-                "The `private_key` must be an instance of `eth_keys.datatypes.PrivateKey`"
+                "The `private_key` must be an instance of `platon_keys.datatypes.PrivateKey`"
             )
         signature = self.backend.ecdsa_sign_non_recoverable(message_hash, private_key)
         if not isinstance(signature, NonRecoverableSignature):
             raise ValidationError(
                 "Backend returned an invalid signature.  Return value must be "
-                "an instance of `eth_keys.datatypes.Signature`"
+                "an instance of `platon_keys.datatypes.Signature`"
             )
         return signature
 
@@ -76,11 +76,11 @@ class KeyAPI(LazyBackend):
         validate_message_hash(message_hash)
         if not isinstance(public_key, PublicKey):
             raise ValidationError(
-                "The `public_key` must be an instance of `eth_keys.datatypes.PublicKey`"
+                "The `public_key` must be an instance of `platon_keys.datatypes.PublicKey`"
             )
         if not isinstance(signature, BaseSignature):
             raise ValidationError(
-                "The `signature` must be an instance of `eth_keys.datatypes.BaseSignature`"
+                "The `signature` must be an instance of `platon_keys.datatypes.BaseSignature`"
             )
         return self.backend.ecdsa_verify(message_hash, signature, public_key)
 
@@ -90,26 +90,26 @@ class KeyAPI(LazyBackend):
         validate_message_hash(message_hash)
         if not isinstance(signature, Signature):
             raise ValidationError(
-                "The `signature` must be an instance of `eth_keys.datatypes.Signature`"
+                "The `signature` must be an instance of `platon_keys.datatypes.Signature`"
             )
         public_key = self.backend.ecdsa_recover(message_hash, signature)
         if not isinstance(public_key, _PublicKey):
             raise ValidationError(
                 "Backend returned an invalid public_key.  Return value must be "
-                "an instance of `eth_keys.datatypes.PublicKey`"
+                "an instance of `platon_keys.datatypes.PublicKey`"
             )
         return public_key
 
     def private_key_to_public_key(self, private_key: _PrivateKey) -> _PublicKey:
         if not isinstance(private_key, PrivateKey):
             raise ValidationError(
-                "The `private_key` must be an instance of `eth_keys.datatypes.PrivateKey`"
+                "The `private_key` must be an instance of `platon_keys.datatypes.PrivateKey`"
             )
         public_key = self.backend.private_key_to_public_key(private_key)
         if not isinstance(public_key, PublicKey):
             raise ValidationError(
                 "Backend returned an invalid public_key.  Return value must be "
-                "an instance of `eth_keys.datatypes.PublicKey`"
+                "an instance of `platon_keys.datatypes.PublicKey`"
             )
         return public_key
 

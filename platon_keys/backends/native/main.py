@@ -11,8 +11,8 @@ from .ecdsa import (
     decompress_public_key,
 )
 
-from eth_keys.backends.base import BaseECCBackend
-from eth_keys.datatypes import (  # noqa: F401
+from platon_keys.backends.base import BaseECCBackend
+from platon_keys.datatypes import (  # noqa: F401
     BaseSignature,
     NonRecoverableSignature,
     PrivateKey,

@@ -1,6 +1,6 @@
 from typing import Any  # noqa: F401
 
-from eth_keys.datatypes import (
+from platon_keys.datatypes import (
     BaseSignature,
     NonRecoverableSignature,
     PrivateKey,

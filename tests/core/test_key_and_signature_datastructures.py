@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 import pytest
 
-from eth_utils import (
+from platon_utils import (
     decode_hex,
     encode_hex,
     keccak,
@@ -13,9 +13,9 @@ from eth_utils import (
     ValidationError,
 )
 
-from eth_keys import KeyAPI
-from eth_keys.backends import NativeECCBackend
-from eth_keys.exceptions import ValidationError as EthKeysValidationErrorCopy
+from platon_keys import KeyAPI
+from platon_keys.backends import NativeECCBackend
+from platon_keys.exceptions import ValidationError as PlatonKeysValidationErrorCopy
 
 
 MSG = b'message'
@@ -156,7 +156,7 @@ def test_compressed_bytes_conversion(key_api, private_key):
     assert key_api.PublicKey.from_compressed_bytes(compressed_bytes) == public_key
 
 
-@pytest.mark.parametrize('validation_error', (ValidationError, EthKeysValidationErrorCopy))
+@pytest.mark.parametrize('validation_error', (ValidationError, PlatonKeysValidationErrorCopy))
 def test_compressed_bytes_validation(key_api, private_key, validation_error):
     valid_key = private_key.public_key.to_compressed_bytes()
 
@@ -168,5 +168,5 @@ def test_compressed_bytes_validation(key_api, private_key, validation_error):
         key_api.PublicKey.from_compressed_bytes(b"\x04" + valid_key[1:])
 
 
-def test_validation_error_is_from_eth_utils():
-    assert EthKeysValidationErrorCopy is ValidationError
+def test_validation_error_is_from_platon_utils():
+    assert PlatonKeysValidationErrorCopy is ValidationError

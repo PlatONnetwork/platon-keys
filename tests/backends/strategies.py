@@ -2,14 +2,14 @@ from hypothesis import (
     strategies as st,
 )
 
-from eth_utils import (
+from platon_utils import (
     int_to_big_endian,
 )
 
-from eth_keys.constants import (
+from platon_keys.constants import (
     SECPK1_N,
 )
-from eth_keys.utils.padding import (
+from platon_keys.utils.padding import (
     pad32,
 )
 

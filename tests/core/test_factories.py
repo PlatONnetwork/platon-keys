@@ -1,5 +1,5 @@
-from eth_keys import keys
-from eth_keys.tools.factories import (
+from platon_keys import keys
+from platon_keys.tools.factories import (
     PrivateKeyFactory,
     PublicKeyFactory,
 )

@@ -6,17 +6,17 @@ from hypothesis import (
     given,
 )
 
-from eth_keys import KeyAPI
-from eth_keys.backends import CoinCurveECCBackend
-from eth_keys.backends import NativeECCBackend
-from eth_keys.constants import (
+from platon_keys import KeyAPI
+from platon_keys.backends import CoinCurveECCBackend
+from platon_keys.backends import NativeECCBackend
+from platon_keys.constants import (
     SECPK1_N,
 )
-from eth_keys.utils.numeric import (
+from platon_keys.utils.numeric import (
     coerce_low_s,
 )
 
-from eth_utils import (
+from platon_utils import (
     keccak,
 )
 

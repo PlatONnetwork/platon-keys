@@ -6,17 +6,17 @@ from hypothesis import (
     strategies as st,
 )
 
-from eth_utils import (
+from platon_utils import (
     keccak,
 )
 
-from eth_keys.exceptions import (
+from platon_keys.exceptions import (
     BadSignature,
 )
 
-from eth_keys import KeyAPI
-from eth_keys.backends import CoinCurveECCBackend
-from eth_keys.backends import NativeECCBackend
+from platon_keys import KeyAPI
+from platon_keys.backends import CoinCurveECCBackend
+from platon_keys.backends import NativeECCBackend
 
 from strategies import (
     private_key_st,

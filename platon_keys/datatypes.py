@@ -15,10 +15,10 @@ from typing import (    # noqa: F401
     TYPE_CHECKING,
 )
 
-from eth_typing import (
-    ChecksumAddress,
+from platon_typing import (
+    ChecksumAddress, Bech32Address,
 )
-from eth_utils import (
+from platon_utils import (
     big_endian_to_int,
     encode_hex,
     int_to_big_endian,
@@ -27,24 +27,24 @@ from eth_utils import (
     keccak,
     to_checksum_address,
     to_normalized_address,
-    ValidationError,
+    ValidationError, to_bech32_address,
 
 )
 
-from eth_keys.utils.address import (
-    public_key_bytes_to_address,
+from platon_keys.utils.address import (
+    public_key_to_address,
 )
-from eth_keys.utils.numeric import (
+from platon_keys.utils.numeric import (
     int_to_byte,
 )
-from eth_keys.utils.padding import (
+from platon_keys.utils.padding import (
     pad32,
 )
 
-from eth_keys.exceptions import (
+from platon_keys.exceptions import (
     BadSignature,
 )
-from eth_keys.validation import (
+from platon_keys.validation import (
     validate_private_key_bytes,
     validate_compressed_public_key_bytes,
     validate_uncompressed_public_key_bytes,
@@ -55,7 +55,7 @@ from eth_keys.validation import (
 )
 
 if TYPE_CHECKING:
-    from eth_keys.backends.base import BaseECCBackend  # noqa: F401
+    from platon_keys.backends.base import BaseECCBackend  # noqa: F401
 
 
 # Must compare against version_info[0] and not version_info.major to please mypy.
@@ -73,7 +73,7 @@ class LazyBackend:
     def __init__(self,
                  backend: 'Union[BaseECCBackend, Type[BaseECCBackend], str, None]' = None,
                  ) -> None:
-        from eth_keys.backends.base import (  # noqa: F811
+        from platon_keys.backends.base import (  # noqa: F811
             BaseECCBackend,
         )
 
@@ -88,7 +88,7 @@ class LazyBackend:
         else:
             raise ValueError(
                 "Unsupported format for ECC backend.  Must be an instance or "
-                "subclass of `eth_keys.backends.BaseECCBackend` or a string of "
+                "subclass of `platon_keys.backends.BaseECCBackend` or a string of "
                 "the dot-separated import path for the desired backend class"
             )
 
@@ -109,7 +109,7 @@ class LazyBackend:
 
     @classmethod
     def get_backend(cls, *args: Any, **kwargs: Any) -> 'BaseECCBackend':
-        from eth_keys.backends import get_backend
+        from platon_keys.backends import get_backend
         return get_backend(*args, **kwargs)
 
 
@@ -229,16 +229,19 @@ class PublicKey(BaseKey, LazyBackend):
         return self.backend.compress_public_key_bytes(self.to_bytes())
 
     #
-    # Ethereum address conversions
+    # Platon address conversions
     #
+    def to_bech32_address(self, hrp: str) -> Bech32Address:
+        return to_bech32_address(public_key_to_address(self.to_bytes()), hrp)
+
     def to_checksum_address(self) -> ChecksumAddress:
-        return to_checksum_address(public_key_bytes_to_address(self.to_bytes()))
+        return to_checksum_address(public_key_to_address(self.to_bytes()))
 
     def to_address(self) -> str:
-        return to_normalized_address(public_key_bytes_to_address(self.to_bytes()))
+        return to_normalized_address(public_key_to_address(self.to_bytes()))
 
     def to_canonical_address(self) -> bytes:
-        return public_key_bytes_to_address(self.to_bytes())
+        return public_key_to_address(self.to_bytes())
 
 
 class PrivateKey(BaseKey, LazyBackend):
@@ -257,6 +260,7 @@ class PrivateKey(BaseKey, LazyBackend):
 
     def sign_msg(self, message: bytes) -> 'Signature':
         message_hash = keccak(message)
+        print(f'msg hash：{message_hash.hex()}')
         return self.sign_msg_hash(message_hash)
 
     def sign_msg_hash(self, message_hash: bytes) -> 'Signature':

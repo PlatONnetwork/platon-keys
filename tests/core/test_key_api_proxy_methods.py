@@ -1,12 +1,12 @@
 import pytest
 
-from eth_utils import (
+from platon_utils import (
     keccak,
     ValidationError,
 )
 
-from eth_keys import KeyAPI
-from eth_keys.backends import NativeECCBackend
+from platon_keys import KeyAPI
+from platon_keys.backends import NativeECCBackend
 
 
 MSG = b'message'
